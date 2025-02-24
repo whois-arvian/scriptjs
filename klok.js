@@ -33,15 +33,6 @@ function getRandomMessage() {
   return CONFIG.RANDOM_MESSAGES[index];
 }
 
-function getToken() {
-  try {
-    return fs.readFileSync(CONFIG.TOKEN_FILE, 'utf8').trim();
-  } catch (error) {
-    console.error('Error reading token file:', error);
-    process.exit(1);
-  }
-}
-
 function createApiClient(token) {
   return axios.create({
     baseURL: CONFIG.API_BASE_URL,
@@ -134,8 +125,8 @@ async function checkPoints(apiClient) {
     const pointsData = response.data;
 
     console.log('\n\x1b[32m=== Points Information ===');
-    console.log(`Points Balance: ${pointsData.points || 0}`);
-    console.log(`Referral Points: ${pointsData.referral_points || 0}`);
+    console.log(`Points Balance: ${pointsData.points?.inference || 0}`);
+    console.log(`Referral Points: ${pointsData.points?.referral || 0}`);
     console.log(`Total Points: ${pointsData.total_points || 0}`);
     console.log('========================\x1b[0m\n');
 
