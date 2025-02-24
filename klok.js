@@ -2,6 +2,8 @@ const fs = require('fs');
 const axios = require('axios');
 const { v4: uuidv4 } = require('uuid');
 
+const TOKEN = "w8o_1irXylcmXQV5im2uhzmqs1hoa_3bRHRWb1-ZhXY";
+
 function showBanner() {
   console.log('\n\x1b[37m' + `
                       🚀 AirdropInsiders 🚀                      
@@ -50,6 +52,7 @@ function createApiClient(token) {
       'accept-language': 'en-US,en;q=0.9',
       'origin': 'https://klokapp.ai',
       'referer': 'https://klokapp.ai/',
+      'Content-Type': 'application/json',
       'sec-ch-ua': '"Not(A:Brand";v="99", "Microsoft Edge";v="133", "Chromium";v="133"',
       'sec-ch-ua-mobile': '?0',
       'sec-ch-ua-platform': '"Windows"',
@@ -87,7 +90,7 @@ async function createNewThread(apiClient, message) {
   };
 
   try {
-    const response = await apiClient.post('/threads', threadData);
+    const response = await apiClient.post("/threads", threadData);
     return response.data;
   } catch (error) {
     console.error('Error creating thread:', error.response?.status, error.response?.data || error.message);
@@ -146,7 +149,7 @@ async function checkPoints(apiClient) {
 async function runBot() {
   showBanner();
   console.log('Starting chat bot...');
-  const token = "w8o_1irXylcmXQV5im2uhzmqs1hoa_3bRHRWb1-ZhXY";
+  const token = TOKEN;
   const apiClient = createApiClient(token);
   let currentThreadId = null;
 
